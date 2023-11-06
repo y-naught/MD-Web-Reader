@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if book %}
+            {{book.title}} Table of Contents
+        {% endif %}
+    </title>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>
+                {% if book %}
+                    {{book.title}} Table of Contents
+                {% endif %}
+            </h1>
+        </nav>
+    </header>
+    <main>
+
+    
+    {% if sections_list %}
+        <ul>
+            {% for section in sections_list %}
+                <!-- <li><a href="/{{book.title}}/{{section.section_title}}">{{section.section_title}}</a></li>       -->
+                <li><a href="{% url 'book:section' section.section_title %}">{{section.section_title}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </main>
+</body>
+</html>

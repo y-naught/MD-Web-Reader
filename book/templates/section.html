@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if section %}
+            {{section.section_title}}
+        {% endif %}
+    </title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$','$'], ['\\(', '\\)']], 
+                displayMath : [['$$', '$$']]
+                },
+            };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'book/section.css' %}" title="section_styles">
+    
+</head>
+<body>
+    <header>
+        <nav id="top_nav">
+            <div id="side_nav_toggle_container">
+                <img src="https://ik.imagekit.io/dofkqbm9t/Parametric%20and%20Computational%20Design%20in%20Rhino%20and%20Grasshopper/Site%20Resources/table_of_contents_vector.svg?updatedAt=1691425530976" alt="table_of_contents_toggle" id="toc_toggle_svg">
+            </div>
+            <div id="section_title_container">
+                <h1 id="section_title">
+                    {% if section %}
+                        {{section.section_title}}
+                    {% endif %}
+                </h1>
+            </div>
+            <div id="links_container">
+                <div id="home_top_nav_container" class="top_nav_links">
+                    <p class="link_text">Home</p>
+                </div>
+                <div id="toc_top_nav_container" class="top_nav_links">
+                    <p class="link_text">Table of Contents</p>
+                </div>
+                <div id="settings_cog_nav_container" class="top_nav_links">
+                    <img src="https://ik.imagekit.io/dofkqbm9t/Parametric%20and%20Computational%20Design%20in%20Rhino%20and%20Grasshopper/Site%20Resources/settings_cog_vector.svg?updatedAt=1691546128066" alt="Settings icon" id="settings_cog_svg">
+                </div>
+            </div>
+        </nav>
+        <div id="settings_window">
+            <div id="Dark_Mode_Toggle_Container">
+                <p id="dark_mode_text">Dark Mode</p>
+                <label class="switch" id="dark_mode_switch">
+                    <input type="checkbox" id="dark_mode_input">
+                    <span id="dark_mode_slider"></span>
+                </label>
+            </div>
+            <div id="font_size_container">
+                <p id="font_size_text">Font Size</p>
+                <div id="font_size_slider_container">
+                    <input type="range" min="6" max="20" value="9" id="font_slider">
+                    <p id="font_size_display">6</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="top_nav_spacer"></div>
+        <nav id="side_nav">
+            {% for heading, subsection, subsection_id in section.get_subsections %}
+                <a href= "#{{subsection_id}}" class="sub_section_link">{{heading}} : {{subsection}}</a><br>
+            {% endfor %}
+        </nav>
+        <div id="main_content_container">
+            <div id="main_content">
+                {% autoescape off %}
+                    {% if section %}
+                        {{section.section_information}}
+                    {% endif %}
+                {% endautoescape %}
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <p>A footer with some external and internal links will go here</p>
+        </div>
+    </footer>
+</body>
+<script src="{% static 'book/section.js' %}"></script>
+</html>
